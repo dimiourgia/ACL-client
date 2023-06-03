@@ -1,0 +1,10 @@
+
+body{
+  background-image: linear-gradient(to bottom right, #5D5C5C, #040303);
+}
+
+.container{
+  margin: auto;
+  width:300px;
+  height:fit-content'
+}
