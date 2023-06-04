@@ -1,10 +1,171 @@
-
+a{
+  text-decoration: none;
+  color: antiquewhite;
+}
 body{
-  background-image: linear-gradient(to bottom right, #5D5C5C, #040303);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.3;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  margin: 0px;
+  padding: 0px;
 }
 
 .container{
   margin: auto;
-  width:300px;
-  height:fit-content'
+  width:100%;
+  height:100%;
+}
+
+.lp_container{
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1.2em;
+  font-weight: 500;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #FCAF3C;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #948368;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.login_button{
+  margin-left: 20px;
+  text-decoration: none;
+  width:170px;
+  height:50px;
+}
+.board_container{
+  flex:1;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.topbar{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  height:65px;  
+  background-image: linear-gradient(#1d1b1b, rgb(39, 38, 38) );
+}
+
+.hero{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.section1{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero_text{
+  margin: 20px;
+  margin-top: 33px;
+  flex: 1;
+  font-size: 3.5em;
+  font-weight: 500;
+  color:rgb(161, 159, 159);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.logoText{
+  margin-left: 20px;
+  margin-top:10px;
+  color:#cdcdcd;
+  font-size: 2.5em;
+  font-weight: 500;
+  font-family: 'crackman';
+}
+
+/*
+.logo{
+  margin-left: 20px;
+  margin-top:22px;
+  width:50px;
+  height:50px;
+}
+
+.logo_row{
+  display: flex;
+  width: 50px;
+  height: 25px;
+}
+
+.logo_row_white{
+  flex: 1;
+  width:25px;
+  height:25px;
+  background-color: #fff;
+}
+.logo_row_black{
+  flex: 1;
+  width:25px;
+  height:25px;
+  background-color: #000;
+}
+*/
+.spacer{
+  aspect-ratio: 960/170;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  bottom: 0px;
+  z-index: -1;
+}
+
+.layer1{
+  background-image: url('./assets/images/others/layer3.svg');
+}
+
+@media screen and (max-width: 600px) {
+  .spacer{
+    aspect-ratio: 1024/200;
+    width: 100%;
+    height: 300px;
+  }
+
+  .layer1{
+    background-image: url('./assets/images/others/layer5.svg');
+  }
+
+  .hero{
+    flex-direction: column;
+    height: max-content;
+  }
+
+  .board_container{
+    display: none;
+  }
+
+  .topbar{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+@font-face {
+  font-family: 'crackman';
+  src: url("./assets/fonts/crackman.regular.otf") format("opentype");
 }
