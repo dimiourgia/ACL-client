@@ -21,7 +21,9 @@ export default function LandingPage(){
  
     <div className='lp_container'>
         <div className='topbar'>
-            <div className='logoText'>Puzzler</div>
+            <div className='logoText'>
+               <Link to='/'>Puzzler</Link> 
+            </div>
         </div>
         <div className="hero">
             <div className="section1">
