@@ -720,13 +720,12 @@ function allPossibleMoves(piece, row, col, map, lastMove){
         function fenToMap(fen){
             var map=[["","","","","","","",""],["","","","","","","",""],["","","","","","","",""],["","","","","","","",""],["","","","","","","",""],["","","","","","","",""],["","","","","","","",""],["","","","","","","",""]];
             var str = fen.split(' ')[0].split('/');
-            console.log(str);
-            for(i=0;i<8;i++){
+            for(let i=0;i<8;i++){
                 var tmp = str[i];
-                k=0;
-                for(z=0;z<tmp.length;z++){
+                let k=0;
+                for(let z=0;z<tmp.length;z++){
                     if(!(tmp[z].toLowerCase() != tmp[z].toUpperCase())){
-                        for(j=0;j<tmp[z];j++){
+                        for(let j=0;j<tmp[z];j++){
                             map[i][k]="";
                             k++;
                         }

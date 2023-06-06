@@ -1,3 +1,4 @@
+import {motion} from 'framer-motion'
 import wr from '../assets/images/pieces/wr.png'
 import wn from '../assets/images/pieces/wn.png'
 import wb from '../assets/images/pieces/wb.png'
@@ -12,6 +13,7 @@ import bq from '../assets/images/pieces/bq.png'
 import bp from '../assets/images/pieces/bp.png'
 
 import boardImage from '../assets/images/others/board.jpg'
+import { useEffect, useRef } from 'react'
 
 
 
@@ -22,19 +24,53 @@ export default function Board(props){
     const map_c = map.map(row=>row.slice())
     const board = []
 
+    const previousMapRef = useRef(props.map)
+
+    useEffect(()=>{
+      previousMapRef.current = props.map  
+    },[props.map])
+    
+    const previousMap = previousMapRef.current
+    let movedTo=[-1,-1], movedFrom=[-1,-1]
+
+    map.map((row,i)=>{
+      row.map((piece, j)=>{
+        if(map[i][j] !== '' && previousMap[i][j] !== map[i][j]) movedTo=[i,j] 
+        if(previousMap[i][j]!=='' && map[i][j]==='' ) movedFrom=[i,j]
+      })
+    })
+
+    console.log(movedFrom, movedTo)
+
+    const spring = {
+      type: 'spring',
+      damping: 10,
+      stiffness: 100
+    }
+
 
         map.map((row, i) =>{
             row.map((piece, j) =>{
+                
+                var finalTop = flipped ? ((i)*(board_size/8)) : ((7-i)*(board_size/8))
+                var finalLeft = flipped ?   (7-j)*board_size/8 : j*board_size/8
+
+                var top = (movedTo[0]===i && movedTo[1]===j)? (flipped ? ((movedFrom[0])*(board_size/8)) : ((7-movedFrom[0])*(board_size/8))) : (flipped ? ((i)*(board_size/8)) : ((7-i)*(board_size/8)))
+                var left = (movedTo[0]===i && movedTo[1]===j)? (flipped? (7-movedFrom[1])*board_size/8 : movedFrom[1]*board_size/8) : (flipped ?   (7-j)*board_size/8 : j*board_size/8)
+             
+      
               piece && board.push(
-                  <img src = {eval(piece)} key={`${i}-${j}`} style={
+                  <motion.img src = {eval(piece)} key={`${i}-${j}`} style={
                     {
                         zIndex:1,
                         width: board_size/8,
                         height: board_size/8,
-                        position:"absolute",
-                        top: flipped ? ((i)*(board_size/8)) : ((7-i)*(board_size/8)),
-                        left: flipped ?   (7-j)*board_size/8 : j*board_size/8
+                        position:"absolute",  
                     }}
+
+                    initial={{left: left, top:top}}
+                    animate={{left:finalLeft, top:finalTop}}
+                    transition={{duration:.28, spring }}
                  />         
                  )})});
     
@@ -52,7 +88,7 @@ export default function Board(props){
                       position:'absolute',
                       zIndex:.2,
                       left:  j*board_size/8,
-                      backgroundColor: flag ? '#30627980' : '#d1c1c180', 
+                      backgroundColor : ((movedTo[0]===i && movedTo[1]===j) || (movedFrom[0]===i && movedFrom[1]===j) )? '#d7dd58ba' : flag ? '#30627980' : '#d1c1c180',
                     }}
                     />)
                     flag=!flag;

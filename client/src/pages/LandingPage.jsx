@@ -1,20 +1,28 @@
 import {BrowserRouter as Router, Link } from 'react-router-dom'
+import { useState, useRef, useEffect } from 'react'
 import Board from '../components/Board'
+import {fenToMap} from '../utils/helper.js'
 
 
 
 export default function LandingPage(){
+    const board_states = [{fen:'2R1K3/2Q5/8/8/8/8/pp6/1k5r'}, {fen:'2R1K3/8/8/8/8/8/ppQ5/1k5r'}, {fen:'2R1K3/8/8/8/8/8/ppQ5/k6r'}, {fen:'2R1K3/8/8/8/8/8/pp6/k1Q4r'}, {fen:'2R1K3/8/8/8/8/8/pp6/k1r5'}, {fen:'4K3/8/8/8/8/8/pp6/k1R5'}]
+    const [map, setMap] = useState(fenToMap(board_states[0].fen))
+    
+    let index = 1;
+    const updateMap = ()=>{
+        if(index>5) index=0
+        console.log(index)
+        setMap(fenToMap(board_states[index].fen))
+        index++
 
-    const default_map=    [
-        ["wr","wn","wb","wq","wk","wb","wn","wr"],
-        ["wp","wp","wp","wp","wp","wp","wp",""],
-        ["","","","","","","",""],
-        ["","","","","","","",""],
-        ["","","","","","","",""],
-        ["","","","","","","",""],
-        ["bp","bp","bp","bp","bp","bp","bp",""],
-        ["br","bn","bb","bq","bk","bb","bn","br"]        
-    ];
+    }
+
+    useEffect(()=>{
+    //    const interval = setInterval(updateMap, 3000)
+
+     //   return () => clearInterval(interval)
+    }, [])
 
 
     return(
@@ -38,7 +46,7 @@ export default function LandingPage(){
             <div className='board_container'>
                 <Board 
                     board_size={350}
-                    map = {default_map}
+                    map = {map}
                     flipped={false}
                 />
             </div>  
