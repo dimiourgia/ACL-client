@@ -20,11 +20,11 @@ export default function Register(){
     const [countryError, setCountryError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [error, setError] = useState(false)
-    const [country, setCountry] = useState('')
     
-    const changeHandler=(event)=>{
-        setCountry(event.target.value)
-    }
+    useEffect(()=>{
+        firstNameRef.current.focus()
+    },[])
+    
 
     const handleSubmit = async (event) =>{
         event.preventDefault()

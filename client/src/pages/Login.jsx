@@ -17,6 +17,10 @@ const [error, setError] = useState(false)
 const [emailError, setEmailError] = useState(false)
 const [passwordError, setPasswordError] = useState(false)
 
+useEffect(()=>{
+    emailRef.current.focus()
+},[])
+
 const handleLogin = (e)=>{
     e.preventDefault()
     const email = emailRef.current.value
