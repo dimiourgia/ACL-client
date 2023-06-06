@@ -113,7 +113,7 @@ export default function Register(){
                 <Input placeholder={'Last Name'} ref={lastNameRef} type={'text'} error={lastNameError} />
             </div>
             
-            <InputFieldSelect placeholder={'Country'} ref={countryRef} optionsList={countries} error={false} />
+            <InputFieldSelect placeholder={'Country'} ref={countryRef} optionsList={countries} error={countryError} />
             <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />
             <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
             {error && <Error error={error} />}
@@ -121,6 +121,7 @@ export default function Register(){
             <div className='form_button_wrapper'>
                 <button className='button form_button' type='submit' >Register</button>
             </div>
+            <br/>
         <div style={{textAlign:'center'}}>
          Already have an account? <Link to='/login' className='registerLink'>Login</Link>
         </div>

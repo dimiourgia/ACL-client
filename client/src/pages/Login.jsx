@@ -71,8 +71,8 @@ const handleLogin = (e)=>{
        <div className="form_container_wrapper">
             <div className="form_container">
                 <form onSubmit={handleLogin}>
-                        <Input placeholder={'Email'} ref={emailRef} type={'text'} />     
-                        <Input placeholder={'Password'} ref={passwordRef} type={'password'}  />
+                        <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />     
+                        <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
                         {error && <Error error={error}/>}
                         
                         <div className="form_button_wrapper">
