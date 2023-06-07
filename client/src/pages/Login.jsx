@@ -50,7 +50,7 @@ const handleLogin = (e)=>{
         }
     }
 
-    axios.post('http://localhost:8084/login', {email, password})
+    axios.post('https://acl-zeta.vercel.app/api/login', {email, password})
     .then(res=>{
         if(res.data.type !== undefined){
             if(res.data.type === 'error') setError(res.data.message)

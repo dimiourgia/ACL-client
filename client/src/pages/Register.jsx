@@ -84,7 +84,7 @@ export default function Register(){
     //Everything looks good send the form to server
 
         try{
-            axios.post('http://localhost:8084/register', {firstName, lastName, country, email, password})
+            axios.post('https://acl-zeta.vercel.app/api/register', {firstName, lastName, country, email, password})
             .then(res=>{
                 console.log(res.data)
                 if(res.data.type!==undefined && res.data.type==='error')
