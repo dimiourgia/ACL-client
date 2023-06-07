@@ -12,6 +12,26 @@ import bk from '../assets/images/pieces/bk.png'
 import bq from '../assets/images/pieces/bq.png'
 import bp from '../assets/images/pieces/bp.png'
 
+
+function getSource(piece){
+  switch(piece){
+    case 'wr': return wr
+    case 'wn': return wn
+    case 'wb': return wb
+    case 'wk': return wk
+    case 'wq': return wq
+    case 'wp': return wp
+
+    case 'br': return br
+    case 'bn': return bn
+    case 'bb': return bb
+    case 'bk': return bk
+    case 'bq': return bq
+    case 'bp': return bp
+  }
+}
+
+
 import boardImage from '../assets/images/others/board.jpg'
 import { useEffect, useRef } from 'react'
 
@@ -60,7 +80,7 @@ export default function Board(props){
              
       
               piece && board.push(
-                  <motion.img src = {eval(piece)} key={`${i}-${j}`} style={
+                  <motion.img src = {getSource(piece)} key={`${i}-${j}`} style={
                     {
                         zIndex:1,
                         width: board_size/8,
