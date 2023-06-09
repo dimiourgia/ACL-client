@@ -1,10 +1,12 @@
 import {useState, useRef, useEffect} from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import countries from '../utils/countryList.json'
 import Input from '../components/Input'
 import InputFieldSelect from '../components/InputFieldSelect'
-import Error from '../components/Error'
+import FormMessage from '../components/FromMessage'
+import Loading from '../components/Loading'
+import {motion} from 'framer-motion'
 
 
 export default function Register(){
@@ -20,12 +22,31 @@ export default function Register(){
     const [countryError, setCountryError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [error, setError] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [fetchingFromServer, setFetchingFromServer] = useState(false)
+
+    //animatin transition type
+    const spring = {
+        type: 'spring',
+        damping: 10,
+        stiffness: 100
+    }
+
     
     useEffect(()=>{
         firstNameRef.current.focus()
     },[])
     
+    //if user registered sucessfull.. redirect them to login page
+    const navigate = useNavigate()
 
+    useEffect(()=>{
+        if(success){
+            setTimeout(()=>{navigate('/login')},3000)
+        }
+    },[success])
+
+    //for submit handler
     const handleSubmit = async (event) =>{
         event.preventDefault()
 
@@ -82,13 +103,20 @@ export default function Register(){
         }
     
     //Everything looks good send the form to server
+        
+    setFetchingFromServer(true)
 
         try{
             axios.post('https://acl-zeta.vercel.app/api/register', {firstName, lastName, country, email, password})
             .then(res=>{
+                setFetchingFromServer(false)
                 console.log(res.data)
                 if(res.data.type!==undefined && res.data.type==='error')
                     setError(res.data.message)
+                
+                if(res.data.type!==undefined && res.data.type==='success')
+                    setSuccess(`${res.data.message}. Redirecting you to the login page..`)
+                
             })
             
         }
@@ -106,7 +134,7 @@ export default function Register(){
             </div>
         </div>
         <div className="form_container_wrapper">
-            <div className="form_container">
+            <motion.div className="form_container" initial={{transform:'scale(.2)', opacity:0}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
             <form onSubmit={handleSubmit}>
             <div style={{display:'flex', columnGap:'8px', marginBottom:'14px'}}>
                 <Input placeholder={'First Name'} ref={firstNameRef} type={'text'} error={firstNameError} />
@@ -116,18 +144,19 @@ export default function Register(){
             <InputFieldSelect placeholder={'Country'} ref={countryRef} optionsList={countries} error={countryError} />
             <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />
             <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
-            {error && <Error error={error} />}
+            {error && <FormMessage type='error' message={error}/>}
+            {success && <FormMessage type='success' message={success}/>}
+            {fetchingFromServer && <Loading/>}
 
             <div className='form_button_wrapper'>
-                <button className='button form_button' type='submit' >Register</button>
+                <button className={fetchingFromServer? 'button form_button disabled' : 'button form_button'} type='submit' >Register</button>
             </div>
             <br/>
         <div style={{textAlign:'center'}}>
          Already have an account? <Link to='/login' className='registerLink'>Login</Link>
         </div>
-        </form>
-  
-            </div>
+        </form>      
+            </motion.div>
         </div>
         <div className='spacer layer1'></div>
     </div>

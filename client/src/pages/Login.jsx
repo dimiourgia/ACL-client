@@ -3,7 +3,9 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import king from '../assets/images/pieces/bk.png'
 import Input from '../components/Input'
-import Error from '../components/Error'
+import FormMessage from '../components/FromMessage'
+import Loading from '../components/Loading'
+import {motion} from 'framer-motion'
 
 
 
@@ -16,12 +18,29 @@ const passwordRef = useRef()
 const [error, setError] = useState(false)
 const [emailError, setEmailError] = useState(false)
 const [passwordError, setPasswordError] = useState(false)
+const [fetchingFromServer, setFetchingFromServer] = useState(false)
+const [success, setSuccess] = useState(false)
+const [userName, setUsername] = useState('')
+
+//animatin transition type
+const spring = {
+    type: 'spring',
+    damping: 10,
+    stiffness: 100
+}
 
 useEffect(()=>{
     emailRef.current.focus()
 },[])
 
+const handleLoggin = (e)=>{
+    e.preventDefault()
+    setSuccess(true)
+}
+
 const handleLogin = (e)=>{
+    if(fetchingFromServer) return
+
     e.preventDefault()
     const email = emailRef.current.value
     const password = passwordRef.current.value
@@ -50,12 +69,20 @@ const handleLogin = (e)=>{
         }
     }
 
+    //Everything looks good sent form to the server
+    setFetchingFromServer(true)
+
     axios.post('https://acl-zeta.vercel.app/api/login', {email, password})
     .then(res=>{
         if(res.data.type !== undefined){
             if(res.data.type === 'error') setError(res.data.message)
         }
-        console.log(res.data, error)
+        if(res.data.type === 'success') {
+            setUsername(res.data.userName)
+            setSuccess(true);
+        }
+        console.log(res.data)
+        setFetchingFromServer(false)
     })
     .catch((err)=>{
         if(err.response){
@@ -73,24 +100,36 @@ const handleLogin = (e)=>{
         </div>
 
        <div className="form_container_wrapper">
-            <div className="form_container">
+            <motion.div className="form_container" initial={{transform:'scale(.2)', opacity:0}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
                 <form onSubmit={handleLogin}>
                         <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />     
                         <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
-                        {error && <Error error={error}/>}
+                        {error && <FormMessage type='error' message={error}/>}
+                        {fetchingFromServer && <Loading/> }
                         
                         <div className="form_button_wrapper">
-                            <button className='button form_button' type='submit'>Login</button>
+                            <button className={fetchingFromServer? 'button form_button disabled' : 'button form_button'} type='submit'>
+                             Login  
+                            </button>
                         </div>
                         <br/>
                         <div style={{textAlign:'center'}}>
                             Don't have an account? <Link to='/register' className='registerLink'>Sign Up</Link>
                         </div> 
                    </form>
-            </div>
+            </motion.div>
        </div>
         <div className='spacer layer1'></div>
 
-
+        {success && 
+        <motion.div 
+        onClick={()=>{setSuccess(false)}}
+            className='login_splash' 
+            initial={{opacity:0}} 
+            animate={{opacity:1}}
+            transition={{duration:.28, spring}}
+            >
+            <h1>{`${userName}, Welcome to the system !`}</h1>
+            </motion.div>}
     </div>
 )}
