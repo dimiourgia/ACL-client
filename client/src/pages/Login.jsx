@@ -85,8 +85,10 @@ const handleLogin = (e)=>{
         setFetchingFromServer(false)
     })
     .catch((err)=>{
-        if(err.response){
-            setError(err.response.data)
+        console.log(err.message)
+        if(err.message){
+            setError(err.message)
+            setFetchingFromServer(false)
         }
     })
 }
@@ -123,7 +125,6 @@ const handleLogin = (e)=>{
 
         {success && 
         <motion.div 
-        onClick={()=>{setSuccess(false)}}
             className='login_splash' 
             initial={{opacity:0}} 
             animate={{opacity:1}}

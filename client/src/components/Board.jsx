@@ -90,7 +90,7 @@ export default function Board(props){
 
                     initial={{left: left, top:top}}
                     animate={{left:finalLeft, top:finalTop}}
-                    transition={{duration:.28, spring }}
+                    transition={{duration:.38, spring }}
                  />         
                  )})});
     

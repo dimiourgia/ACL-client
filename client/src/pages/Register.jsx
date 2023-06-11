@@ -111,8 +111,11 @@ export default function Register(){
             .then(res=>{
                 setFetchingFromServer(false)
                 console.log(res.data)
-                if(res.data.type!==undefined && res.data.type==='error')
+                if(res.data.type!==undefined && res.data.type==='error'){
                     setError(res.data.message)
+                    setEmailError(true)
+                }
+                    
                 
                 if(res.data.type!==undefined && res.data.type==='success')
                     setSuccess(`${res.data.message}. Redirecting you to the login page..`)
@@ -122,6 +125,8 @@ export default function Register(){
         }
         catch(err){
             console.log(err)
+            setError(err.message)
+            setFetchingFromServer(false)
         }
         
     }

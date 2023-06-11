@@ -142,6 +142,11 @@ button:focus-visible {
 }
 
 
+.section_divider{
+  width:100%;
+  background-image: url('./assets/images/others/waves.svg');
+}
+
 
 
 @font-face {
@@ -251,7 +256,7 @@ button:focus-visible {
   .form_container_wrapper{
     width: calc(100% - 10px);
     padding:5px;
-    margin-top: 20vh;
+    margin-top: 5vh;
   }
 
   .form_container{
@@ -373,4 +378,21 @@ form{
   color: #242424;
   text-align: center;
   padding-top: 50px;
+}
+
+input:internal-autofill-selected{
+  background-color: white !important
+}
+
+.subText{
+  margin-top:18px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #777;
+}
+
+.skills{
+  margin-left:13px;
+  font-size: inherit;
+  color:#FCAF3C
 }
