@@ -232,7 +232,7 @@ button:focus-visible {
   .spacer{
     aspect-ratio: 1024/200;
     width: 100%;
-    height: 300px;
+    height: 150px;
   }
 
   .layer1{
@@ -256,7 +256,7 @@ button:focus-visible {
   .form_container_wrapper{
     width: calc(100% - 10px);
     padding:5px;
-    margin-top: 5vh;
+    margin-top: 3vh;
   }
 
   .form_container{
