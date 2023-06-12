@@ -269,7 +269,8 @@ button:focus-visible {
   }
 
   .hero_text{
-    margin-top: calc(33px + 12vh);
+    margin-top: calc(33px + 4vh);
+    font-size: 2.8em;
   }
 }
 
