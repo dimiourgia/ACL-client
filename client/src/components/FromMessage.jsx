@@ -1,4 +1,5 @@
 import {useState} from 'react'
+
  export default function FormMessage(props){
   const [type, setType] = useState(props.type)
 

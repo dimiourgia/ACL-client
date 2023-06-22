@@ -13,7 +13,7 @@ export default function LandingPage(){
     const [skill, setSkill] = useState('tactics')
     const skills = ['tactics', 'openings', 'game strategy']
 
-    //animatin transition type
+    //animation transition type
     const spring = {
         type: 'spring',
         damping: 10,
@@ -24,7 +24,6 @@ export default function LandingPage(){
     let index = 1
     const updateMap = ()=>{
         if(index>5) index=0
-        console.log(index)
         setMap(fenToMap(board_states[index].fen))
         index++
 

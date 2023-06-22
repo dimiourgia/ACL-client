@@ -60,7 +60,7 @@ export default function Board(props){
       })
     })
 
-    console.log(movedFrom, movedTo)
+    //console.log(movedFrom, movedTo)
 
     const spring = {
       type: 'spring',

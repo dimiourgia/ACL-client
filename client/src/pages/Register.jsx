@@ -8,6 +8,7 @@ import FormMessage from '../components/FromMessage'
 import Loading from '../components/Loading'
 import {motion} from 'framer-motion'
 
+const env = 'dev'
 
 export default function Register(){
     const firstNameRef = useRef(null)
@@ -24,6 +25,7 @@ export default function Register(){
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
     const [fetchingFromServer, setFetchingFromServer] = useState(false)
+    const host = env=='dev' ? 'http://localhost:8084' : 'https://acl-zeta.vercel.app' 
 
     //animatin transition type
     const spring = {
@@ -53,7 +55,7 @@ export default function Register(){
     //validate all input befor sending to server
         const firstName = firstNameRef.current.value
         const lastName = lastNameRef.current.value
-        const email = emailRef.current.value
+        const email = emailRef.current.value.toLowerCase()
         const password = passwordRef.current.value
         const country = countryRef.current.value
 
@@ -107,7 +109,7 @@ export default function Register(){
     setFetchingFromServer(true)
 
         try{
-            axios.post('https://acl-zeta.vercel.app/api/register', {firstName, lastName, country, email, password})
+            axios.post(`${host}/api/register`, {firstName, lastName, country, email, password})
             .then(res=>{
                 setFetchingFromServer(false)
                 console.log(res.data)

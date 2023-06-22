@@ -8,7 +8,7 @@ import Loading from '../components/Loading'
 import {motion} from 'framer-motion'
 
 
-
+const env = 'dev'
 
 export default function Login(){
 
@@ -21,6 +21,7 @@ const [passwordError, setPasswordError] = useState(false)
 const [fetchingFromServer, setFetchingFromServer] = useState(false)
 const [success, setSuccess] = useState(false)
 const [userName, setUsername] = useState('')
+const host = env=='dev' ? 'http://localhost:8084' : 'https://acl-zeta.vercel.app' 
 
 //animatin transition type
 const spring = {
@@ -72,7 +73,7 @@ const handleLogin = (e)=>{
     //Everything looks good sent form to the server
     setFetchingFromServer(true)
 
-    axios.post('https://acl-zeta.vercel.app/api/login', {email, password})
+    axios.post(`${host}/api/login`, {email, password})
     .then(res=>{
         if(res.data.type !== undefined){
             if(res.data.type === 'error') setError(res.data.message)
