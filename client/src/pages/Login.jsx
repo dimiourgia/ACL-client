@@ -8,7 +8,7 @@ import Loading from '../components/Loading'
 import {motion} from 'framer-motion'
 
 
-const env = 'dev'
+const env =  'production'
 
 export default function Login(){
 
